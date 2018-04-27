@@ -6,9 +6,7 @@ const path = require('path');
 const routes = require('./routes/routes');
 var app = express();
 
-mongoose.connect('mongodb://admin:admin123@ds161459.mlab.com:61459/shoppinglist',{
-    useMongoClient: true
-});
+mongoose.connect('mongodb://admin:admin123@ds161459.mlab.com:61459/shoppinglist');
 mongoose.connection.on('connected', () => {
     console.log('db connected');
 });
@@ -26,6 +24,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('*', (req, res) =>{
    res.sendFile(path.join(__dirname, 'public/index.html'));
 });
+
+app.get('/', (req, res)=> {
+    res.send('ok');
+})
 
 const port = process.env.port || 8080;
 app.listen(port, () => {
